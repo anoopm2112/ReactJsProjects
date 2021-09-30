@@ -3,7 +3,7 @@
 ## Requirements
 
 - [x] Node.js `14.15.1`
-- [x] yarn
+- [x] yarn `1.22.5`
 
 ## Getting Started with Create React App
 
@@ -26,16 +26,12 @@ Open [http://localhost:9900](http://localhost:9900) to view it in the browser.
 
 ### build
 ```bash
-yarn build
+yarn build:{mode}
 ```
 Builds the app using webpack for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### test
-
-```bash
-yarn test
-```
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
@@ -50,11 +46,15 @@ https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
 https://docs.docker.com/compose/install/
 
-## Start container
-```bash
-docker-compose -f docker-compose.yml up --build -d
-```
 ## Stop container
 ```bash
-docker-compose -f docker-compose.yml down -v --rmi local
+BUILD_ENV=dev docker-compose -f docker-compose.yml down -v --rmi local
+```
+## Remove existing
+```bash
+docker rmi -f $(docker images -f "dangling=true" -q)
+```
+## Start container
+```bash
+BUILD_ENV=dev docker-compose -f docker-compose.yml up --build -d
 ```
